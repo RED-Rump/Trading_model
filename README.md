@@ -26,6 +26,13 @@ A professional Python-based backtesting platform for developing and testing syst
   - CAGR (Compound Annual Growth Rate)
   - Calmar Ratio
 
+- **🔄 Unified Trading System**
+  - Backtest strategies on stocks/indices
+  - Validate performance metrics
+  - Deploy to IC Markets forex trading
+  - Live trading integration with MT5
+  - Automated risk management
+
 - **⚡ Smart Features**
   - Data caching for faster backtests
   - Configurable parameters
@@ -77,7 +84,18 @@ cd trading_model
 python main.py
 ```
 
-#### Option 3: Jupyter Notebook
+#### Option 3: Unified Trading System (Backtest → Validate → Deploy)
+```bash
+python unified_trading_system.py
+```
+This runs a complete workflow:
+- Backtests strategy on historical stock data
+- Validates profitability metrics
+- Connects to IC Markets MT5
+- Tests deployment (simulation)
+- Ready for live forex trading
+
+#### Option 4: Jupyter Notebook
 ```bash
 jupyter notebook
 # Open trading_model/notebooks/01_getting_started.ipynb
@@ -87,22 +105,23 @@ jupyter notebook
 
 ```
 trading_model/
-├── data/                    # Data collection & management
+├── data/                       # Data collection & management
 │   └── collector.py
-├── strategies/              # Trading strategy implementations
-│   ├── base.py             # Base strategy class
-│   ├── moving_average.py   # MA crossover strategy
-│   ├── mean_reversion.py   # Mean reversion strategy
-│   └── momentum.py         # Momentum strategy
-├── backtesting/            # Backtesting engine
+├── strategies/                 # Trading strategy implementations
+│   ├── base.py                # Base strategy class
+│   ├── moving_average.py      # MA crossover strategy
+│   ├── mean_reversion.py      # Mean reversion strategy
+│   └── momentum.py            # Momentum strategy
+├── backtesting/               # Backtesting engine
 │   └── engine.py
-├── notebooks/              # Jupyter notebooks
+├── notebooks/                 # Jupyter notebooks
 │   └── 01_getting_started.ipynb
-├── logs/                   # Results & plots (auto-generated)
-├── config.py               # Configuration settings
-├── main.py                 # CLI application
-├── gui_app.py             # GUI application
-└── requirements.txt        # Python dependencies
+├── logs/                      # Results & plots (auto-generated)
+├── config.py                  # Configuration settings
+├── main.py                    # CLI application
+├── gui_app.py                 # GUI application
+├── unified_trading_system.py  # Unified backtest → validate → deploy system
+└── requirements.txt           # Python dependencies
 ```
 
 ## 🎯 Example Usage
@@ -130,6 +149,37 @@ results = backtester.run(strategy, prices['SPY'], returns['SPY'])
 # View results
 backtester.plot_results()
 ```
+
+## 🔄 Unified Trading System
+
+The unified trading system connects your backtesting model with IC Markets live trading:
+
+```python
+from unified_trading_system import UnifiedTradingSystem
+
+# Create system
+system = UnifiedTradingSystem(mode="BOTH")
+
+# Run complete workflow
+system.run_unified_workflow(
+    strategy_name='moving_average',
+    backtest_symbol='SPY',
+    forex_symbol='EURUSD'
+)
+```
+
+### Workflow Steps
+1. **Backtest**: Test strategy on historical stock/index data
+2. **Validate**: Check Sharpe ratio, returns, and drawdown metrics
+3. **Connect**: Establish connection to IC Markets MT5
+4. **Test Deploy**: Simulate deployment without real trades
+5. **Deploy Live**: Execute real trades on forex markets (if desired)
+
+### Key Methods
+- `backtest_strategy()` - Backtest your strategy
+- `is_strategy_profitable()` - Check profitability criteria
+- `connect_to_forex()` - Connect to IC Markets
+- `deploy_to_live()` - Deploy strategy to forex trading
 
 ## ⚙️ Configuration
 
